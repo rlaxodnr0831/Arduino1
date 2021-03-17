@@ -1,0 +1,16 @@
+#include<Servo.h> // 서보모터를 제어하기 위한 라이브러리
+
+Servo myservo; // 서보모터를 제어할 객체
+
+void setup() {
+    myservo.attach(10);
+}
+
+void loop() {
+  myservo.write(0); // 제어할 각도
+  delay(500); // 0.5초 딜레이
+  myservo.write(90);
+  delay(500);
+   myservo.write(180);
+  delay(500);
+}
