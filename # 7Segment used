@@ -1,0 +1,61 @@
+#include <Servo.h> // 서보모터를 제어하기 위한 라이브러리
+
+Servo myservo; // 서보모터를 제어할 객체
+
+int segmentLEDs[] = { 2, 3, 4, 5, 6, 7, 8, 9 };
+int segmentLEDsNum = 8;
+int LED = 11; // LED를 11번에 연결
+
+int digitForNum[10][8] = {
+  { 1, 1, 1, 1, 1, 1, 0, 0 }, // 숫자 0을 나타냄
+  { 0, 1, 1, 0, 0, 0, 0, 0 }, // 숫자 1을 나타냄
+  { 1, 1, 0, 1, 1, 0, 1, 0 }, // 숫자 2을 나타냄
+  { 1, 1, 1, 1, 0, 0, 1, 0 }, // 숫자 3을 나타냄
+  { 0, 1, 1, 0, 0, 1, 1, 0 }, // 숫자 4을 나타냄
+  { 1, 0, 1, 1, 0, 1, 1, 0 }, // 숫자 5을 나타냄
+  { 1, 0, 1, 1, 1, 1, 1, 0 }, // 숫자 6을 나타냄
+  { 1, 1, 1, 0, 0, 0, 0, 0 }, // 숫자 7을 나타냄
+  { 1, 1, 1, 1, 1, 1, 1 ,0 }, // 숫자 8을 나타냄
+  { 1, 1, 1, 1, 0, 1, 1, 0 }, // 숫자 9을 나타냄
+};
+
+void setup() {
+  myservo.attach(13); // 서보모터를 연결할 핀 번호
+
+  for (int i = 0 ; i < segmentLEDsNum ; i++) {
+    pinMode(segmentLEDs[i], OUTPUT); // 7세그먼트를 OUTPUT에 연결
+    pinMode(LED, OUTPUT); // LED를 OUTPUT에 연결
+  }
+}
+
+void loop() {
+  for (int i = 0 ; i < 10 ; i++) {
+    for (int j = 0; j < segmentLEDsNum ; j++) {
+      digitalWrite(segmentLEDs[j], digitForNum[i][j]);
+    } // 7세그먼트를 0~9까지 출력하는 반복문
+
+    
+    if(i == 1) { // 숫자 1이 출력되면 LED ON
+    digitalWrite(LED, HIGH);
+    }
+
+    if(i == 2) { // 숫자 2가 출력되면 LED OFF
+    digitalWrite(LED, LOW);
+    }
+    
+    if(i == 3) { // 숫자 3이 출력되면 서보모터 90도 회전
+    myservo.write(90); // 제어할 각도
+    }
+
+    if(i == 4) { // 숫자 4가 출력되면 서보모터 180도 회전
+    myservo.write(180); // 제어할 각도
+    }
+    
+    if(i == 5) { // 숫자 5가 출력되면 서보모터 0도 회전
+    myservo.write(0); // 제어할 각도
+    }
+    
+
+    delay(1000); // 0.5초 딜레이
+  }
+}
