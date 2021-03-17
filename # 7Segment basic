@@ -1,0 +1,41 @@
+int segmentLEDs[] = { 2, 3, 4, 5, 6, 7, 8, 9 };
+int segmentLEDsNum = 8;
+int LED = 10; // LED를 10번에 연결
+
+int digitForNum[10][8] = {
+  { 1, 1, 1, 1, 1, 1, 0, 0 }, // 숫자 0을 나타냄
+  { 0, 1, 1, 0, 0, 0, 0, 0 }, // 숫자 1을 나타냄
+  { 1, 1, 0, 1, 1, 0, 1, 0 }, // 숫자 2을 나타냄
+  { 1, 1, 1, 1, 0, 0, 1, 0 }, // 숫자 3을 나타냄
+  { 0, 1, 1, 0, 0, 1, 1, 0 }, // 숫자 4을 나타냄
+  { 1, 0, 1, 1, 0, 1, 1, 0 }, // 숫자 5을 나타냄
+  { 1, 0, 1, 1, 1, 1, 1, 0 }, // 숫자 6을 나타냄
+  { 1, 1, 1, 0, 0, 0, 0, 0 }, // 숫자 7을 나타냄
+  { 1, 1, 1, 1, 1, 1, 1 ,0 }, // 숫자 8을 나타냄
+  { 1, 1, 1, 1, 0, 1, 1, 0 }, // 숫자 9을 나타냄
+};
+
+void setup() {
+  for (int i = 0 ; i < segmentLEDsNum ; i++) {
+    pinMode(segmentLEDs[i], OUTPUT); // 7세그먼트를 OUTPUT에 연결
+    pinMode(LED, OUTPUT); // LED를 OUTPUT에 연결
+  }
+}
+
+void loop() {
+  for (int i = 0 ; i < 10 ; i++) {
+    for (int j = 0; j < segmentLEDsNum ; j++) {
+      digitalWrite(segmentLEDs[j], digitForNum[i][j]);
+    } // 7세그먼트를 0~9까지 출력하는 반복문
+    
+    if(i == 1) { // 숫자 1이 출력되면 LED ON
+    digitalWrite(LED, HIGH);
+    }
+
+    else { // 그 외에는 LED OFF
+    digitalWrite(LED, LOW);
+    }
+
+    delay(500); // 0.5초 딜레이
+  }
+}
